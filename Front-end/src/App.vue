@@ -1,9 +1,7 @@
 <script setup>
-import Api from './components/Api.vue'
+import Tasks from './components/Tasks.vue'
 </script>
 
 <template>
-  <Api />
+  <Tasks />
 </template>
-
-<style></style>
