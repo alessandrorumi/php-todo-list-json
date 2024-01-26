@@ -5,3 +5,9 @@ import Tasks from './components/Tasks.vue'
 <template>
   <Tasks />
 </template>
+
+<style>
+:root {
+  font-family: Arial, Helvetica, sans-serif;
+}
+</style>

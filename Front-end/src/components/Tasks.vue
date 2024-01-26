@@ -11,12 +11,21 @@ export default {
   },
   methods: {
     addTask() {
-      this.tasks.push(this.newTask);
-      this.newTask = '';
+
+      const params = {
+        text: this.newTask
+      };
+
+      axios.get('http://localhost/pushTask.php', { params })
+        .then(res => {
+          this.tasks = res.data;
+        })
+        .catch(err => console.error(err));
+      // this.newTask = '';
     }
   },
   mounted() {
-    axios.get('http://localhost/tasksApi.php')
+    axios.get('http://localhost/getTasks.php')
       .then(res => {
         this.tasks = res.data;
       })
@@ -27,9 +36,13 @@ export default {
 
 <template>
   <h1>Task</h1>
+  <form @submit.prevent="addTask">
+    <input type="text" name="text" v-model="newTask">
+    <button type="submit">Aggiungi</button>
+  </form>
   <ul>
     <li v-for="(task, id) in tasks" :key="id" :class="{ 'done-task': task.done }">
-      {{ task.name }}
+      {{ task.text }}
     </li>
   </ul>
 </template>
