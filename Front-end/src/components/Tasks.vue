@@ -22,7 +22,18 @@ export default {
           this.newTask = '';
         })
         .catch(err => console.error(err));
-      // this.newTask = '';
+    },
+
+    removeTask(index) {
+      const params = {
+        index: index
+      };
+
+      axios.get('http://localhost/removeTask.php', { params })
+        .then(res => {
+          this.tasks = res.data;
+        })
+        .catch(err => console.error(err));
     }
   },
   mounted() {
@@ -43,13 +54,28 @@ export default {
   </form>
   <ul>
     <li v-for="(task, id) in tasks" :key="id" :class="{ 'done-task': task.done }">
-      {{ task.text }}
+      <div class="text">
+        {{ task.text }}
+      </div>
+      <div>
+        <button @click="removeTask(index)">Rimuovi</button>
+      </div>
     </li>
   </ul>
 </template>
 
 
 <style scoped>
+li {
+  display: flex;
+  align-items: stretch;
+
+  .text {
+    width: 75px;
+    margin-bottom: 1rem;
+  }
+}
+
 .done-task {
   text-decoration-line: line-through;
 }
