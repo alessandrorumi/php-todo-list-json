@@ -12,11 +12,17 @@ export default {
   methods: {
     addTask() {
 
-      const params = {
+      const data = {
         text: this.newTask
       };
 
-      axios.get('http://localhost/pushTask.php', { params })
+      const config = {
+        headers: {
+          'Content-Type': 'multipart/form-data'
+        }
+      };
+
+      axios.post('http://localhost/pushTask.php', data, config)
         .then(res => {
           this.tasks = res.data;
           this.newTask = '';
