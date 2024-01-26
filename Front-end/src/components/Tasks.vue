@@ -19,6 +19,7 @@ export default {
       axios.get('http://localhost/pushTask.php', { params })
         .then(res => {
           this.tasks = res.data;
+          this.newTask = '';
         })
         .catch(err => console.error(err));
       // this.newTask = '';
