@@ -53,32 +53,34 @@ export default {
 </script>
 
 <template>
-  <h1>Task</h1>
-  <form @submit.prevent="addTask">
-    <input type="text" name="text" v-model="newTask">
-    <button type="submit">Aggiungi</button>
-  </form>
-  <ul>
-    <li v-for="(task, id) in tasks" :key="id" :class="{ 'done-task': task.done }">
-      <div class="text">
-        {{ task.text }}
+  <div class="container col-md-6 mt-5">
+    <h1 class="display-4">Task</h1>
+    <form @submit.prevent="addTask" class="form-group mb-3">
+      <div class="input-group">
+        <input type="text" name="text" v-model="newTask" class="form-control">
+        <button type="submit" class="btn btn-primary">Aggiungi</button>
       </div>
-      <div>
-        <button @click="removeTask(index)">Rimuovi</button>
-      </div>
-    </li>
-  </ul>
+    </form>
+    <ul class="list-group">
+      <li v-for="(task, id) in tasks" :key="id" :class="{ 'done-task': task.done }" class="list-group-item">
+        <div class="text">
+          {{ task.text }}
+        </div>
+        <div>
+          <button @click="removeTask(index)" type="button" class="btn-close"></button>
+        </div>
+      </li>
+    </ul>
+  </div>
 </template>
-
 
 <style scoped>
 li {
   display: flex;
-  align-items: stretch;
+  align-items: center;
 
   .text {
     width: 75px;
-    margin-bottom: 1rem;
   }
 }
 
@@ -86,4 +88,6 @@ li {
   text-decoration-line: line-through;
 }
 </style>
+
+
 
