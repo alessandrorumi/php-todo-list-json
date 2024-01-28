@@ -30,12 +30,24 @@ export default {
         .catch(err => console.error(err));
     },
 
-    removeTask(index) {
+    removeTask(id) {
       const params = {
-        index: index
+        id: id
       };
 
       axios.get('http://localhost/removeTask.php', { params })
+        .then(res => {
+          this.tasks = res.data;
+        })
+        .catch(err => console.error(err));
+    },
+
+    toggleTask(id) {
+      const params = {
+        id: id
+      };
+
+      axios.get('http://localhost/toggleTask.php', { params })
         .then(res => {
           this.tasks = res.data;
         })
@@ -63,11 +75,11 @@ export default {
     </form>
     <ul class="list-group">
       <li v-for="(task, id) in tasks" :key="id" :class="{ 'done-task': task.done }" class="list-group-item">
-        <div class="text">
+        <div class="text" @click="toggleTask(id)">
           {{ task.text }}
         </div>
         <div>
-          <button @click="removeTask(index)" type="button" class="btn-close"></button>
+          <button @click="removeTask(id)" type="button" class="btn-close"></button>
         </div>
       </li>
     </ul>
@@ -80,7 +92,7 @@ li {
   align-items: center;
 
   .text {
-    width: 75px;
+    flex-grow: 1;
   }
 }
 
